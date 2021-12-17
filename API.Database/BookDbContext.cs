@@ -17,6 +17,6 @@ namespace API.Database
 
         public DbSet<Book> Book { get; set; }
 
-        //public DbSet<Author> Author { get; set; }
+        public DbSet<Author> author { get; set; }
     }
 }

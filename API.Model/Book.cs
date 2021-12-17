@@ -17,7 +17,6 @@ namespace API.Model
         [DisplayName("Book Name")]
         public string BookName { get; set; }
 
-        //public Author Author { get; set; }
-        //public int AuthorId { get; set; }
+        public int AuthorId { get; set; }
     }
 }
