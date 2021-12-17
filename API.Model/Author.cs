@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace API.Model
 {
-    public class Author
+     public class Author
     {
         [Key]
         public int AuthorId { get; set; }
 
         [Required]
-        [DisplayName("Author Name")]
+        [DisplayName("Book Name")]
         public string AuthorName { get; set; }
     }
 }

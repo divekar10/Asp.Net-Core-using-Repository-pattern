@@ -11,9 +11,12 @@ namespace API.Database
     {
         Task<IEnumerable<Book>> GetAllBook();
 
-        Task GetBookById(int id);
+        Task<Book> GetBookById(int id);
 
         Task<Book> AddBook(Book book);
+
+        Task UpdateBook(Book book);
+        Task DeleteBook(int id);
 
     }
 }

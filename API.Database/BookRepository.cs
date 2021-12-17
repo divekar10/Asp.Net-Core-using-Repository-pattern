@@ -1,4 +1,6 @@
 ﻿using API.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +11,40 @@ namespace API.Database
 {
     public class BookRepository : IBook
     {
-        public Task<Book> AddBook(Book book)
+        private BookDbContext _BookDbContext;
+        public BookRepository(BookDbContext bookDbContext)
         {
-            throw new NotImplementedException();
+            _BookDbContext = bookDbContext;
         }
 
-        public Task<IEnumerable<Book>> GetAllBook()
+        public async Task<Book> AddBook(Book book)
         {
-            throw new NotImplementedException();
+            _BookDbContext.Add(book);
+            await _BookDbContext.SaveChangesAsync();
+            return book;
         }
 
-        public Task GetBookById(int id)
+        public async Task<IEnumerable<Book>> GetAllBook()
         {
-            throw new NotImplementedException();
+            return await _BookDbContext.Book.ToListAsync();
+        }
+
+        public async Task<Book> GetBookById(int id)
+        {
+            return await _BookDbContext.Book.FindAsync(id);  
+        }
+        
+        public async Task DeleteBook(int id)
+        {
+            var bookToDelete = await _BookDbContext.Book.FindAsync(id);
+            _BookDbContext.Book.Remove(bookToDelete);
+            await _BookDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateBook(Book book)
+        {
+            _BookDbContext.Entry(book).State = EntityState.Modified;
+            await _BookDbContext.SaveChangesAsync();
         }
     }
 }
